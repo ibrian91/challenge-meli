@@ -3,6 +3,8 @@ package com.mercadolibre.mutant_detector;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.mercadolibre.mutant_detector.service.MutantDetector;
+
 @SpringBootApplication
 public class MutantAplicattion {
 
