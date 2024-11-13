@@ -1,17 +1,23 @@
 package com.mercadolibre.mutant_detector.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mercadolibre.mutant_detector.model.CharBase;
 import com.mercadolibre.mutant_detector.model.Stats;
+import com.mercadolibre.mutant_detector.model.StatsEntity;
+import com.mercadolibre.mutant_detector.repository.StatsRepository;
 
 @Service
 public class MutantDetector {
 	
-	private static int count_mutant_dna = 0;
-	private static int count_human_dna 	= 0;
+	@Autowired
+    private StatsRepository statsRepository;
 	
-	public static boolean isMutant (String[] dna) {
+	//private static int count_mutant_dna = 0;
+	//private static int count_human_dna 	= 0;
+	
+	public boolean isMutant (String[] dna) {
 		int n = dna.length;
         char[][] dnaMatrix = new char[n][n];
         boolean isMutant = false;
@@ -23,13 +29,27 @@ public class MutantDetector {
         isMutant = searchSequence(n, dnaMatrix, isMutant);
         
         if (isMutant) {
-            count_mutant_dna++;
+            incrementMutantCount();
         } else {
-            count_human_dna++;
+            incrementHumanCount();
         }
         
         return isMutant; 
 	}
+
+	private void incrementMutantCount() {
+        StatsEntity stats = statsRepository.findById(1L).orElse(new StatsEntity());
+        stats.setCountMutantDna(stats.getCountMutantDna() + 1);
+        stats.setRatio(calculateRatio(stats));
+        statsRepository.save(stats);
+    }
+
+    private void incrementHumanCount() {
+        StatsEntity stats = statsRepository.findById(1L).orElse(new StatsEntity());
+        stats.setCountHumanDna(stats.getCountHumanDna() + 1);
+        stats.setRatio(calculateRatio(stats));
+        statsRepository.save(stats);
+    }
 
 	private static boolean searchSequence(int n, char[][] dnaMatrix, boolean isMutant) {
 	    int contador = 0;
@@ -120,13 +140,16 @@ public class MutantDetector {
 	}
 
 	
+	private static float calculateRatio(StatsEntity stats) {
+        if (stats.getCountHumanDna() == 0) {
+            return 0;
+        }
+        return (float) stats.getCountMutantDna() / stats.getCountHumanDna();
+    }
+	
 	public Stats getStats() {
-		float ratio =0;
-		if (count_human_dna !=0) {
-			 ratio = (float) count_mutant_dna / count_human_dna;
-		}
-		
-		return new Stats(count_mutant_dna,count_human_dna,ratio);
-	}
+        StatsEntity statsEntity = statsRepository.findById(1L).orElse(new StatsEntity());
+        return new Stats(statsEntity.getCountMutantDna(), statsEntity.getCountHumanDna(), statsEntity.getRatio());
+    }
 
 }

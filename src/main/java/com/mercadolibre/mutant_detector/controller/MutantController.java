@@ -23,7 +23,7 @@ public class MutantController {
 	
     @PostMapping
     public ResponseEntity<?> isMutant(@RequestBody DnaRequest dnaRequest) {
-        if (MutantDetector.isMutant(dnaRequest.getDna())) {
+        if (mutantDetector.isMutant(dnaRequest.getDna())) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
