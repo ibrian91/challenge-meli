@@ -29,12 +29,5 @@ public class MutantController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
-    // GET endpoint para obtener estadísticas
-    @GetMapping("/stats")
-    public ResponseEntity<?> getStats() {
-    	  Stats stats = mutantDetector.getStats();
-          return ResponseEntity.ok(stats);
-    }
-	
-
+    
 }

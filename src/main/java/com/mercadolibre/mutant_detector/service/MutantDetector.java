@@ -8,8 +8,8 @@ import com.mercadolibre.mutant_detector.model.Stats;
 @Service
 public class MutantDetector {
 	
-	private static int mutantCount = 0;
-	private static int humanCount 	= 0;
+	private static int count_mutant_dna = 0;
+	private static int count_human_dna 	= 0;
 	
 	public static boolean isMutant (String[] dna) {
 		int n = dna.length;
@@ -23,9 +23,9 @@ public class MutantDetector {
         isMutant = searchSequence(n, dnaMatrix, isMutant);
         
         if (isMutant) {
-            mutantCount++;
+            count_mutant_dna++;
         } else {
-            humanCount++;
+            count_human_dna++;
         }
         
         return isMutant; 
@@ -122,11 +122,11 @@ public class MutantDetector {
 	
 	public Stats getStats() {
 		float ratio =0;
-		if (humanCount !=0) {
-			 ratio = (float) mutantCount / humanCount;
+		if (count_human_dna !=0) {
+			 ratio = (float) count_mutant_dna / count_human_dna;
 		}
 		
-		return new Stats(mutantCount,humanCount,ratio);
+		return new Stats(count_mutant_dna,count_human_dna,ratio);
 	}
 
 }

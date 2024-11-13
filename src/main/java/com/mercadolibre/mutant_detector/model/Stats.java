@@ -1,22 +1,23 @@
 package com.mercadolibre.mutant_detector.model;
 
 public class Stats {
-    private int mutants;
-    private int humans;
+    private int count_mutant_dna;
+    private int count_human_dna;
     private float ratio;
 
-    public Stats(int mutants, int humans, float ratio) {
-        this.mutants = mutants;
-        this.humans = humans;
+    public Stats(int count_mutant_dna, int count_human_dna, float ratio) {
+        this.count_mutant_dna = count_mutant_dna;
+        this.count_human_dna = count_human_dna;
         this.ratio = ratio;
     }
 
-    public int getMutants() {
-        return mutants;
+
+    public int getCount_mutant_dna() {
+        return count_mutant_dna;
     }
 
-    public int getHumans() {
-        return humans;
+    public int getCount_human_dna() {
+        return count_human_dna;
     }
 
     public float getRatio() {
