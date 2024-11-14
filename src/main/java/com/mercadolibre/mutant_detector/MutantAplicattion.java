@@ -47,6 +47,7 @@ public class MutantAplicattion {
         };
 
         System.out.println("Is mutant? " + mutantDetector.isMutant(dnaMutant)); // true
+        System.out.println("Is mutant? " + mutantDetector.isMutant(dnaMutant)); // ESTA REPETIDO. NO INGRESA A LA DB
         System.out.println("Is mutant? " + mutantDetector.isMutant(dnaMutant2)); // false
         System.out.println("Is mutant? " + mutantDetector.isMutant(dnaNonMutant)); // false
     }
