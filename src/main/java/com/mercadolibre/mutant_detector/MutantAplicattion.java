@@ -8,47 +8,46 @@ import com.mercadolibre.mutant_detector.service.MutantDetector;
 
 @SpringBootApplication
 public class MutantAplicattion {
-	
-	 @Autowired
-	    private static MutantDetector mutantDetector; // Inyectamos la instancia de MutantDetector
 
-	public static void main(String[] args) {
-		SpringApplication.run(MutantAplicattion.class, args);
-		
-		String[] dnaMutant = {
-	            "ATGCGA",
-	            "CAGTGC",
-	            "TTATGT",
-	            "AGAAGG",
-	            "CCCCTA",
-	            "TCACTG"
-	        };
-		
-		String[] dnaMutant2 = {
-				  "ATGCGA",
-		          "AYGTGC",
-		          "ATOTGT",
-		          "AGAUZG",
-		          "PCCCTA",
-		          "TCACTG"
-	        };
-		
+    @Autowired
+    private MutantDetector mutantDetector;  // Eliminamos 'static'
 
+    public static void main(String[] args) {
+        SpringApplication.run(MutantAplicattion.class, args);
+    }
 
-	        String[] dnaNonMutant = {
-	            "ATGCGA",
-	            "CAGTGC",
-	            "TTATTT",
-	            "AGACGG",
-	            "GCGTCA",
-	            "TCACTG"
-	        };
+    // Método adicional para ejecutar la lógica de prueba
+    @Autowired
+    public void runTest() {
+        String[] dnaMutant = {
+            "ATGCGA",
+            "CAGTGC",
+            "TTATGT",
+            "AGAAGG",
+            "CCCCTA",
+            "TCACTG"
+        };
+        
+        String[] dnaMutant2 = {
+            "ATGCGA",
+            "AYGTGC",
+            "ATOTGT",
+            "AGAUZG",
+            "PCCCTA",
+            "TCACTG"
+        };
 
-	        System.out.println("Is mutant? " + mutantDetector.isMutant(dnaMutant)); // Debería imprimir: true
-	        System.out.println("Is mutant? " + mutantDetector.isMutant(dnaMutant2)); // Debería imprimir: false
-	        System.out.println("Is mutant? " + mutantDetector.isMutant(dnaNonMutant)); // Debería imprimir: false
-	   
-		
-	}
+        String[] dnaNonMutant = {
+            "ATGCGA",
+            "CAGTGC",
+            "TTATTT",
+            "AGACGG",
+            "GCGTCA",
+            "TCACTG"
+        };
 
+        System.out.println("Is mutant? " + mutantDetector.isMutant(dnaMutant)); // true
+        System.out.println("Is mutant? " + mutantDetector.isMutant(dnaMutant2)); // false
+        System.out.println("Is mutant? " + mutantDetector.isMutant(dnaNonMutant)); // false
+    }
 }
