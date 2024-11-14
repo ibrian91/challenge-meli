@@ -18,6 +18,7 @@
     
     <properties>
         <java.version>17</java.version>
+        <jacoco.version>0.8.8</jacoco.version> <!-- Versión del plugin JaCoCo -->
     </properties>
 
     <dependencies>
@@ -44,7 +45,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version> <!-- O la versión más reciente -->
+            <version>8.0.33</version>
         </dependency>
 
         <!-- H2 Database (opcional, solo para pruebas locales) -->
@@ -54,22 +55,50 @@
             <scope>runtime</scope>
         </dependency>
         
+        <!-- Google Cloud SQL -->
         <dependency>
             <groupId>com.google.cloud.sql</groupId>
             <artifactId>mysql-socket-factory</artifactId>
-            <version>1.1.0</version> <!-- O la versión más reciente -->
+            <version>1.1.0</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!-- Plugin de Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                	<encoding>UTF-8</encoding>
-            	</configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
+
+            <!-- Plugin de JaCoCo para coverage -->
+             <!-- Configuración del plugin JaCoCo -->
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.8</version>
+            <executions>
+                <!-- Fase de preparación del agente JaCoCo -->
+                <execution>
+                    <id>prepare-agent</id> <!-- Cambiar id a uno único -->
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+
+                <!-- Fase para generar el reporte de cobertura -->
+                <execution>
+                    <id>generate-report</id> <!-- Cambiar id a uno único -->
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <phase>verify</phase> <!-- Genera el reporte después de las pruebas -->
+                </execution>
+            </executions>
+        </plugin>
         </plugins>
     </build>
 
