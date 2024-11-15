@@ -6,8 +6,8 @@ Este proyecto es una implementación de un detector de ADN mutante utilizando Sp
 
 - **Spring Boot**: Para la creación de la API RESTful.
 - **JPA (Java Persistence API)**: Para la persistencia de los datos (base de datos).
-- **H2 Database**: Base de datos en memoria para pruebas.
-- **JUnit**: Para pruebas unitarias.
+- **Google Cloud**: Base de datos en memoria para pruebas.
+- **JUnit - JaCoCo**: Para pruebas unitarias.
 
 ## Endpoints
 
