@@ -18,6 +18,9 @@ public class MutantDetector {
 
     @Autowired
     private StatsRepository statsRepository;
+    
+    private int count_human_dna;
+    private int count_mutant_dna;
 
     public boolean isMutant(String[] dna) {
         // Convertir la secuencia de ADN en un string (puedes usar otro formato si lo prefieres)
@@ -145,24 +148,37 @@ public class MutantDetector {
         StatsEntity stats = statsRepository.findById(1L).orElse(new StatsEntity(0, 0, 0));
         stats.setCountMutantDna(stats.getCountMutantDna() + 1);
         stats.setRatio((float) calculateRatio(stats)); // Actualiza la razón
-        statsRepository.save(stats);
+        statsRepository.save(stats); // Guarda las estadísticas en la base de datos
+
+        count_mutant_dna++; // Actualiza el contador local
     }
 
     private void incrementHumanCount() {
         StatsEntity stats = statsRepository.findById(1L).orElse(new StatsEntity(0, 0, 0));
         stats.setCountHumanDna(stats.getCountHumanDna() + 1);
         stats.setRatio((float) calculateRatio(stats)); // Actualiza la razón
-        statsRepository.save(stats);
+        statsRepository.save(stats); // Guarda las estadísticas en la base de datos
+
+        count_human_dna++; // Actualiza el contador local
     }
 
     private double calculateRatio(StatsEntity stats) {
         // Lógica para calcular la razón
         return (double) stats.getCountMutantDna() / (stats.getCountHumanDna() + stats.getCountMutantDna());
     }
-
-public Stats getStats() {
+    
+    public Stats getStats() {
+        // Recupera las estadísticas de la base de datos
         StatsEntity statsEntity = statsRepository.findById(1L).orElse(new StatsEntity());
         return new Stats(statsEntity.getCountMutantDna(), statsEntity.getCountHumanDna(), statsEntity.getRatio());
+    }
+    
+    public void setCountMutantDna(int countMutantDna) {
+        this.count_mutant_dna = countMutantDna;
+    }
+
+    public void setCountHumanDna(int countHumanDna) {
+        this.count_human_dna = countHumanDna;
     }
 
 }

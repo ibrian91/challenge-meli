@@ -16,10 +16,10 @@ public class StatsController {
 	
 	// Obtener estadisticas de los mutantes / no mutantes generando un nuevo objeto
 	@GetMapping("/stats")
-    public ResponseEntity<?> getStats() {
-  	  Stats stats = mutantDetector.getStats();
-        return ResponseEntity.ok(stats);
-  }
+	public ResponseEntity<Stats> getStats() {
+	    Stats stats = mutantDetector.getStats(); // Obtén las estadísticas desde el servicio
+	    return ResponseEntity.ok(stats); // Devuelve las estadísticas en la respuesta HTTP
+	}
 	
 
 }
