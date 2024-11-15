@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.mercadolibre.mutant_detector.repository.DnaSequenceRepository;
 import com.mercadolibre.mutant_detector.repository.StatsRepository;
-import com.mercadolibre.mutant_detector.model.DnaSequence;
+
 
 class MutantDetectorTest {
 
